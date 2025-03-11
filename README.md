@@ -1,163 +1,209 @@
 # Deep Research
 
-An automated multi-step research system for executing deep, comprehensive research with iterative refinement, source evaluation, and result synthesis.
+<div align="center">
 
-[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[deep_research_banner.webp](assets/deep_research_banner.webp)
+[![Python 3.7+](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-## Overview
+**An automated multi-step research system with iterative refinement, source evaluation, and result synthesis.**
 
-Deep Research is a powerful automated research system designed to intelligently explore topics through multi-step, iterative processes. It combines advanced LLM capabilities with search automation, web scraping, and structured data analysis to provide comprehensive, credible, and nuanced research results.
+</div>
 
-## Features
+## 🌟 Overview
 
-- **Multi-step research process**: Automatically follows promising research paths with configurable depth and breadth
-- **Auto-tuning**: Dynamically adjusts research parameters based on topic complexity and information quality
-- **Source credibility evaluation**: Automatically assesses the credibility and relevance of sources
-- **Contradiction detection**: Identifies and highlights contradictory information across sources
-- **Temporal validation**: Validates time-related information for consistency
-- **Detailed reporting**: Generates comprehensive final reports and chain-of-thought analysis
-- **Progress tracking**: Real-time progress monitoring throughout the research process
+Deep Research is an advanced research automation system that conducts comprehensive, multi-step research processes with depth and precision. It evaluates sources, detects contradictions, validates information, and synthesizes findings into well-structured reports.
 
-## Installation
+The system employs auto-tuning algorithms to optimize research parameters based on question complexity and information quality, ensuring the most effective allocation of computational resources during the research process.
 
-### Prerequisites
+## ✨ Key Features
 
-- Python 3.9 or higher
-- API keys for search and LLM services
+- **Multi-step research** with configurable depth and breadth
+- **Automatic parameter tuning** based on question complexity
+- **Source evaluation** for credibility and relevance
+- **Contradiction detection** across multiple sources
+- **Content validation** for temporal consistency and numerical reasonableness
+- **Comprehensive reporting** with chain-of-thought reasoning
+- **Information synthesis** organized by topics and themes
+- **Research memory** for progressive knowledge accumulation
 
-### Setup
+## 📦 Installation
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/anconina/deep-research.git
-   cd deep-research
-   ```
+```bash
+# Clone the repository
+git clone https://github.com/anconina/deep-research.git
+cd deep-research
 
-2. Create a virtual environment:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+# Create a virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-3. Install the package:
-   ```bash
-   pip install -e .
-   ```
+# Install dependencies
+pip install -r requirements.txt
 
-4. Create a `.env` file with your API keys (see `.env.example` for template)
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your API keys and configurations
+```
 
-## Quick Start
+### Requirements
+
+- Python 3.7+
+- API keys for search services (e.g., Tavily, Bing)
+- LLM access (via litellm)
+
+## 🚀 Quick Start
+
+### Basic Research Example
 
 ```python
 import asyncio
 from deep_research import deep_research
 
-async def research_example():
+async def run_simple_research():
+    query = "Analyze recent developments in quantum computing hardware"
+    
+    # Execute research with automatic parameter tuning
     result = await deep_research(
-        query="Analyze the recent developments in quantum computing hardware",
-        auto_tune=True,  # Enable automatic parameter tuning
-        max_depth=5,     # Maximum research depth
-        max_breadth=8    # Maximum research breadth
+        query=query,
+        auto_tune=True,
+        max_depth=4,
+        max_breadth=6
     )
     
-    # Print key findings
-    print("Key Learnings:")
+    # Print key learnings
     for i, learning in enumerate(result["learnings"]):
         print(f"{i+1}. {learning}")
 
-# Run the research
-asyncio.run(research_example())
+if __name__ == "__main__":
+    asyncio.run(run_simple_research())
 ```
 
-## Advanced Usage
-
-### Research Session
-
-For more control over the research process and output, use the `ResearchSession` class:
+### Advanced Research Session
 
 ```python
 import asyncio
 from deep_research.run import ResearchSession
 
-async def advanced_research():
+async def run_advanced_research():
+    # Initialize a research session
     session = ResearchSession(
-        query="Gather the latest Microsoft (MSFT) press releases and corporate news",
+        query="Analyze the financial performance of Microsoft (MSFT) in the last fiscal year",
         auto_tune=True,
-        max_depth=4,
-        max_breadth=6,
-        time_budget_seconds=300,  # Optional time limit in seconds
-        output_dir="research_results"
+        max_depth=5,
+        max_breadth=8,
+        output_dir="research_output"
     )
     
+    # Execute research and generate reports
     result = await session.execute()
     
-    # The result contains various reports and raw data
-    print(result["final_report"])
+    print("Research completed! Reports saved to:", session.session_dir)
 
-asyncio.run(advanced_research())
+if __name__ == "__main__":
+    asyncio.run(run_advanced_research())
 ```
 
-### Custom Research Engine
+## 🔧 Command Line Usage
 
-For complete customization:
+The system provides a command-line interface for easy execution:
+
+```bash
+# Basic usage with default parameters
+python -m deep_research.run --query "Your research question here"
+
+# Advanced usage with auto-tuning
+python -m deep_research.run --query "Your research question here" --auto-tune --max-depth 5 --max-breadth 8
+
+# Using fixed parameters
+python -m deep_research.run --query "Your research question here" --manual-params --depth 3 --breadth 4
+
+# Setting a time budget (in seconds)
+python -m deep_research.run --query "Your research question here" --time-budget 300
+```
+
+## 📚 API Documentation
+
+### Main Functions
+
+#### `deep_research()`
 
 ```python
-from deep_research.engine import ResearchEngine
-
-# Initialize with custom parameters
-engine = ResearchEngine(
-    auto_tune=True,
-    max_depth=5,
-    max_breadth=8,
-    time_budget_seconds=600
-)
-
-# Execute research with complete control
-result = await engine.deep_research(
-    query="Your research query",
-    depth=3,  # Override auto-tuning if desired
-    breadth=5
-)
+async def deep_research(
+    query: str, 
+    breadth: Optional[int] = None, 
+    depth: Optional[int] = None,
+    auto_tune: bool = False, 
+    max_depth: int = 5,
+    max_breadth: int = 8, 
+    time_budget_seconds: Optional[int] = None
+) -> Dict
 ```
 
-## Configuration
+- **query**: The research question or topic
+- **breadth**: How many parallel queries to explore (if None and auto_tune is True, determined automatically)
+- **depth**: How many levels of follow-up queries to explore (if None and auto_tune is True, determined automatically)
+- **auto_tune**: Whether to automatically determine research parameters
+- **max_depth**: Maximum allowed research depth when auto-tuning
+- **max_breadth**: Maximum allowed research breadth when auto-tuning
+- **time_budget_seconds**: Optional time budget in seconds for auto-tuning
 
-### Environment Variables
+Returns a dictionary containing:
+- `learnings`: List of research learnings
+- `visited_urls`: List of visited URLs
+- `chain_of_thought`: List of reasoning steps
+- `information_map`: Dictionary mapping topics to consensus, contradictions, and gaps
+- `contradictions`: List of detected contradictions
+- `source_evaluations`: List of source evaluations
 
-Create a `.env` file with the following variables:
+#### Report Generation
+
+```python
+async def write_final_report(
+    prompt: str, 
+    learnings: List[str], 
+    information_map: Dict = None,
+    contradictions: List[Dict] = None, 
+    source_evaluations: List[Dict] = None
+) -> str
+```
+
+```python
+async def write_chain_of_thought_report(chain_of_thought: List[str]) -> str
+```
+
+## 🏗️ System Architecture
+
+Deep Research is composed of several interconnected components:
 
 ```
-# API Keys
-OPENAI_API_KEY=your_openai_api_key
-TAVILY_API_KEY=your_tavily_api_key
-FIRECRAWL_API_KEY=your_firecrawl_api_key
-
+┌────────────────────┐      ┌────────────────────┐
+│   Research API     │◄────►│   Research Engine  │
+└────────────────────┘      └─────────┬──────────┘
+                                     │
+        ┌───────────────────────────┼───────────────────────────┐
+        │                           │                           │
+┌───────▼──────────┐     ┌──────────▼──────────┐     ┌─────────▼──────────┐
+│  Auto Tuner      │     │  Content Classifier │     │  Research Memory   │
+└──────────────────┘     └─────────────────────┘     └────────────────────┘
+        │                           │                           │
+        └───────────────────────────┼───────────────────────────┘
+                                    │
+                           ┌────────▼───────┐
+                           │ Prompt Manager │
+                           └────────────────┘
 ```
 
-### Research Parameters
+### Key Components:
 
-- **Depth**: Number of levels of follow-up queries to explore (1-5 recommended)
-- **Breadth**: Number of parallel queries to explore per level (2-8 recommended)
-- **Auto-tune**: When enabled, automatically determines optimal depth and breadth
-- **Time budget**: Optional time limit in seconds for the research process
+- **ResearchEngine**: Orchestrates the research process, including query generation, search execution, content analysis, and result synthesis.
+- **AutoTuner**: Analyzes question complexity and information quality to determine optimal research parameters.
+- **ContentClassifier**: Validates content for temporal consistency, numerical reasonableness, and classifies content types.
+- **ResearchMemory**: Stores and manages research findings, sources, contradictions, and information maps.
+- **PromptManager**: Manages and customizes prompts used throughout the research process.
 
-## Output
-
-The research process generates:
-
-- **Final Report**: Comprehensive markdown report with findings, analysis, and recommendations
-- **Chain of Thought Report**: Detailed explanation of the research reasoning process
-- **Sources Section**: List of sources with credibility and relevance ratings
-- **Data Quality Issues**: Analysis of contradictions and information gaps
-- **Auto-Tuning Decisions**: If auto-tuning is enabled, explanation of parameter decisions
-
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
@@ -166,3 +212,13 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🙏 Acknowledgements
+
+- FireCrawl for web content scraping
+- LiteLLM for LLM integration
+- Tavily, Bing and DuckDuckGo for search capabilities
