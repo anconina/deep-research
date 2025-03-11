@@ -49,3 +49,6 @@ scratch/
 demo/
 logs/
 *.log
+
+poetry.toml
+poetry.lock
