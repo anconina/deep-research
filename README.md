@@ -30,7 +30,7 @@ Deep Research is a powerful automated research system designed to intelligently 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/deep-research.git
+   git clone https://github.com/anconina/deep-research.git
    cd deep-research
    ```
 
