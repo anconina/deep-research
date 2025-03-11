@@ -11,7 +11,7 @@ setup(
     description="An automated multi-step research system with iterative refinement, source evaluation, and result synthesis",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/deep-research",
+    url="https://github.com/anconina/deep-research",
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
