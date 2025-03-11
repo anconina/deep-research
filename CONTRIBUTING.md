@@ -55,7 +55,7 @@ This section guides you through submitting an enhancement suggestion, including 
 ## Development Environment Setup
 
 1. Fork the repository
-2. Clone your fork: `git clone https://github.com/yourusername/deep-research.git`
+2. Clone your fork: `git clone https://github.com/anconina/deep-research.git`
 3. Create a virtual environment:
    ```bash
    cd deep-research
