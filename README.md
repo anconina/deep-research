@@ -131,9 +131,8 @@ Create a `.env` file with the following variables:
 # API Keys
 OPENAI_API_KEY=your_openai_api_key
 TAVILY_API_KEY=your_tavily_api_key
+FIRECRAWL_API_KEY=your_firecrawl_api_key
 
-# Configuration
-CONTEXT_SIZE=128000
 ```
 
 ### Research Parameters
@@ -153,23 +152,6 @@ The research process generates:
 - **Data Quality Issues**: Analysis of contradictions and information gaps
 - **Auto-Tuning Decisions**: If auto-tuning is enabled, explanation of parameter decisions
 
-## Project Structure
-
-```
-deep_research/
-├── __init__.py                # Package initialization
-├── api.py                     # Public API functions
-├── auto_tuning.py             # Parameter auto-tuning functionality
-├── content_classifier.py      # Content validation and classification
-├── engine.py                  # Core research engine
-├── memory.py                  # Research memory management
-├── models.py                  # Pydantic data models
-├── progress.py                # Research progress tracking
-├── prompts.py                 # Centralized prompt management
-├── reporting.py               # Report generation functionality
-├── run.py                     # Research session handling
-└── search_engines/            # Search engine integrations
-```
 
 ## License
 
