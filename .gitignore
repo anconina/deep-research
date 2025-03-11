@@ -1,0 +1,51 @@
+# Environment variables
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.python-version
+
+# Research output directories
+research_output/
+**/session_*/
+**/raw_research_data.json
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Coverage
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+.tox/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Local development-specific files
+local_config.py
+scratch/
+demo/
+logs/
+*.log
